@@ -17,7 +17,7 @@ RUN apt-get update && \
 
 # Build it
 WORKDIR /app
-COPY . .
+RUN git clone https://github.com/ggerganov/llama.cpp.git .
 RUN cmake -B build -DLLAMA_VULKAN=1 -DLLAMA_CURL=1 && \
     cmake --build build --config Release --target server
 
