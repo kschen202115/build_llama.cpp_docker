@@ -21,7 +21,7 @@ FROM ubuntu:$UBUNTU_VERSION as runtime
 RUN apt-get update && \
     apt-get install -y libcurl4-openssl-dev libgomp1
 
-COPY --from=build /app/llama.cpp/server /server
+COPY --from=build /app/server /server
 
 ENV LC_ALL=C.utf8
 
