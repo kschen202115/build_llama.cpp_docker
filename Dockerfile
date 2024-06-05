@@ -13,7 +13,7 @@ RUN pip install --upgrade pip setuptools wheel \
 
 WORKDIR /app
 
-COPY . .
+RUN git clone https://github.com/ggerganov/llama.cpp.git .
 
 ENV LLAMA_CURL=1
 
