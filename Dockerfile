@@ -8,11 +8,13 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Clone the git repository directly to the current directory and enter the llama.cpp directory
-RUN git clone https://github.com/ggerganov/llama.cpp.git . && \
-    cd llama.cpp && \
-    make -j$(nproc)
+RUN git clone https://github.com/ggerganov/llama.cpp.git . 
+
+
 
 ENV LLAMA_CURL=1
+
+RUN make -j$(nproc)
 
 FROM ubuntu:$UBUNTU_VERSION as runtime
 
