@@ -22,7 +22,7 @@ jobs:
       run: docker buildx create --use
 
     - name: Build Docker image
-      run: docker buildx build --platform linux/arm64 --file Dockerfile --tag my-image-name:latest --output type=docker,dest=image.tar
+      run: docker buildx build --platform linux/arm64 --tag my-image-name:latest --output type=docker,dest=image.tar .
 
     - name: Upload Docker image as artifact
       uses: actions/upload-artifact@v3
