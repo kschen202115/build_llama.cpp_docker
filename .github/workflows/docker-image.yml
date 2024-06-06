@@ -4,9 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -22,10 +20,28 @@ jobs:
       run: docker buildx create --use
 
     - name: Build Docker image
-      run: docker buildx build --platform linux/arm64 --tag my-image-full:latest --output type=docker,dest=image.tar .
+      run: docker buildx build --platform linux/amd64 --tag my-image:latest --output type=docker,dest=image.tar .
 
     - name: Upload Docker image as artifact
       uses: actions/upload-artifact@v3
       with:
         name: docker-image
         path: image.tar
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      with:
+        tag_name: v1.0.0  # 替换为你的标签名称或动态生成的标签
+        release_name: Release v1.0.0  # 替换为你的发布名称或动态生成的名称
+        draft: false
+        prerelease: false
+        generate_release_notes: true
+
+    - name: Upload image to Release
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: image.tar
+        asset_name: image.tar
+        asset_content_type: application/x-tar
