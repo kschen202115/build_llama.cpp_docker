@@ -4,11 +4,16 @@ on:
   workflow_dispatch:
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
+    steps:
+      - uses: actions/checkout@v4
+      - name: Upload Dockerfile to GitHub Release
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} > token.txt
+          gh auth login --with-token < token.txt
+          rm token.txt
+          gh release upload latest Dockerfile --clobber Dockerfile
     steps:
     - uses: actions/checkout@v4
     - name: denku
