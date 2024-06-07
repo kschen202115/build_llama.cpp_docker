@@ -41,8 +41,8 @@ jobs:
 
     - name: Create GitHub Release
       run: |
-        TAG_NAME=$(git describe --tags)
+        TAG_NAME="latest"
         RELEASE_NOTES="test"
-        gh release create latest --target $TAG_NAME --notes "$RELEASE_NOTES" ./path_to_assets.zip
+        gh release create latest --target $TAG_NAME --notes "$RELEASE_NOTES" ./image.tar
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
