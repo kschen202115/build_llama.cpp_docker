@@ -13,7 +13,8 @@ jobs:
           echo ${{ secrets.GITHUB_TOKEN }} > token.txt
           gh auth login --with-token < token.txt
           rm token.txt
-          gh release upload latest Dockerfile --clobber Dockerfile
+          gh release create latest './Dockerfile'
+          #gh release upload latest Dockerfile --clobber Dockerfile
     
         
    
