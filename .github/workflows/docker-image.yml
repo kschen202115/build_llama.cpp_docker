@@ -29,3 +29,20 @@ jobs:
       with:
         name: docker-image
         path: image.tar
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up GitHub CLI
+      uses: cli/gh-action@v3
+
+    - name: Authenticate GitHub CLI
+      run: gh auth login --with-token ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create GitHub Release
+      run: |
+        TAG_NAME=$(git describe --tags)
+        RELEASE_NOTES="test"
+        gh release create latest --target $TAG_NAME --notes "$RELEASE_NOTES" ./path_to_assets.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
